@@ -5,12 +5,14 @@ import { EnvVariables } from './infrastructure/config/environment/env-variables.
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppLogger } from './infrastructure/config/logger.service';
 import { FilterExceptionBusiness } from './infrastructure/exceptions/filter-exceptions-business';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const logger = await app.resolve(AppLogger);
   const configService = app.get(ConfigService);
 
+  app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new FilterExceptionBusiness(logger));
 
   const swaggerOptions = new DocumentBuilder()

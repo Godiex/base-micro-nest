@@ -3,19 +3,18 @@ import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { Professional } from '../../../../domain/professional/model/professional';
 import { ProfessionalRepository } from '../../../../domain/professional/port/repository/professional-repository';
+import { ProfessionalEntity } from '../../entity/professional.entity';
 
 @Injectable()
 export class ProfessionalRepositoryMysql implements ProfessionalRepository {
   constructor(
-    @InjectRepository(ClienteEntidad)
-    private readonly repository: Repository<ClienteEntidad>,
+    @InjectRepository(ProfessionalEntity)
+    private readonly repository: Repository<ProfessionalEntity>,
   ) {}
 
   async save(professional: Professional): Promise<void> {
-    const entidad = new ClienteEntidad();
-    entidad.clave = cliente.clave;
-    entidad.fechaCreacion = cliente.fechaCreacion;
-    entidad.nombre = cliente.nombre;
-    await this.repository.save(entidad);
+    const entity = new ProfessionalEntity();
+    entity.mapData(professional);
+    await this.repository.save(entity);
   }
 }

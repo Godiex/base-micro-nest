@@ -1,12 +1,19 @@
 import * as Joi from '@hapi/joi';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { NodeEnv } from './config/environment/env-node.enum';
 import { AppLogger } from './config/logger.service';
+import { ProfessionalModule } from './professional/professional.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { databaseConfigFactory } from './config/database.config';
 
 @Module({
   providers: [AppLogger],
   imports: [
+    TypeOrmModule.forRootAsync({
+      useFactory: databaseConfigFactory,
+      inject: [ConfigService],
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `env/${process.env.NODE_ENV}.env`,
@@ -16,6 +23,7 @@ import { AppLogger } from './config/logger.service';
           .required(),
       }),
     }),
+    ProfessionalModule,
   ],
 })
 export class InfrastructureModule {}

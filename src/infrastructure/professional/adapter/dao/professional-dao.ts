@@ -5,7 +5,7 @@ import { ProfessionalDto } from '../../../../application/professional/query/dto/
 import { ProfessionalDao } from '../../../../domain/professional/port/dao/professional-dao';
 
 @Injectable()
-export class DaoProfessionalMySql implements ProfessionalDao {
+export class ProfessionalDaoMySql implements ProfessionalDao {
   constructor(
     @InjectEntityManager()
     private readonly entityManager: EntityManager,

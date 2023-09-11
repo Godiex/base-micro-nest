@@ -15,6 +15,6 @@ export const databaseConfigFactory = (configService: ConfigService) => ({
   ),
   migrations: [configService.get(EnvVariables.TYPEORM_MIGRATIONS_DIR)],
   cli: {
-    migrationsDir: configService.get(EnvVariables.TYPE_ORM_CLI_MIGRATIONS_DIR),
+    migrationsDir: configService.get(EnvVariables.TYPEORM_CLI_MIGRATIONS_DIR),
   },
 });
