@@ -2,9 +2,10 @@ import * as Joi from '@hapi/joi';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { NodeEnv } from './config/environment/env-node.enum';
+import { AppLogger } from './config/logger.service';
 
 @Module({
-  providers: [],
+  providers: [AppLogger],
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
